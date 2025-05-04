@@ -11,5 +11,5 @@ namespace Proyecto_Modulo_1.Repositories
     {
         List<PasswordStorage> BuscarPorServicio(string serviceName);
         List<PasswordStorage> ObtenerPorUsuario(int userId);
-    }
+    } 
 }
