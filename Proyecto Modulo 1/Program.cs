@@ -1,10 +1,14 @@
-﻿namespace Proyecto_Modulo_1
+﻿using Proyecto_Modulo_1.Models;
+using Proyecto_Modulo_1.Repositories;
+using Proyecto_Modulo_1.Services;
+using Proyecto_Modulo_1.UI;
+
+namespace Proyecto_Modulo_1
 {
-    internal class Program
+    public class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
         }
     }
 }
