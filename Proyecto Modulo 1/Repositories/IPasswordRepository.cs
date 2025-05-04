@@ -9,6 +9,7 @@ namespace Proyecto_Modulo_1.Repositories
 {
     public interface IPasswordRepository : IRepository<PasswordStorage>
     {
-            
+        List<PasswordStorage> BuscarPorServicio(string serviceName);
+        List<PasswordStorage> ObtenerPorUsuario(int userId);
     }
 }

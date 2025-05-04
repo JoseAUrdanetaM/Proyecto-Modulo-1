@@ -9,29 +9,43 @@ namespace Proyecto_Modulo_1.Repositories
 {
     public class PasswordRepository : IPasswordRepository
     {
-        public void Add(PasswordStorage entity)
-        {
-            throw new NotImplementedException();
-        }
 
-        public void Delete(PasswordStorage entity)
-        {
-            throw new NotImplementedException();
-        }
-
+        private List<PasswordStorage> _passwords = new List<PasswordStorage>();
+        private int _nextId = 1;
         public List<PasswordStorage> GetAll()
         {
-            throw new NotImplementedException();
+            return _passwords;
         }
-
         public PasswordStorage GetById(int id)
         {
-            throw new NotImplementedException();
+            return _passwords.FirstOrDefault(x => x.Id == id);
         }
-
+        public void Add(PasswordStorage entity)
+        {
+            entity.Id = _nextId++;
+            _passwords.Add(entity);
+        }
         public void Update(PasswordStorage entity)
         {
-            throw new NotImplementedException();
+            var index = _passwords.FindIndex(x => x.Id == entity.Id);
+
+            if (index != -1)
+            {
+                _passwords[index] = entity;
+            }
+        }
+        public void Delete(PasswordStorage entity)
+        {
+            _passwords.Remove(entity);
+        }
+        public List<PasswordStorage> BuscarPorServicio(string serviceName)
+        {
+            return _passwords.Where(p => p.ServiceName.Contains(serviceName, StringComparison.OrdinalIgnoreCase)).ToList();
+        }
+
+        public List<PasswordStorage> ObtenerPorUsuario(int userId)
+        {
+            return _passwords.Where(p => p.UserId == userId).ToList();
         }
     }
 }
