@@ -14,5 +14,10 @@ namespace Proyecto_Modulo_1.Models
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
 
+        public bool Autenticar(string inputUser, string inputPass)
+        {
+            return Username == inputUser && Password == inputPass;
+        }
+
     }
 }
