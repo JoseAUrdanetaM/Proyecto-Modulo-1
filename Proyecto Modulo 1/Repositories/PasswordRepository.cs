@@ -38,9 +38,12 @@ namespace Proyecto_Modulo_1.Repositories
         {
             _passwords.Remove(entity);
         }
-        public List<PasswordStorage> BuscarPorServicio(string serviceName)
+
+        public List<PasswordStorage> BuscarPorServicio(string serviceName, int userId)
         {
-            return _passwords.Where(p => p.ServiceName.Contains(serviceName, StringComparison.OrdinalIgnoreCase)).ToList();
+            return _passwords
+                .Where(p => p.UserId == userId && p.ServiceName.Contains(serviceName, StringComparison.OrdinalIgnoreCase))
+                .ToList();
         }
     }
 }

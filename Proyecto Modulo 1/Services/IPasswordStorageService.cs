@@ -14,5 +14,7 @@ namespace Proyecto_Modulo_1.Services
         void Crear(PasswordStorage password);
         void Actualizar(PasswordStorage password);
         void Eliminar(PasswordStorage password);
+
+        List<PasswordStorage> BuscarPorServicio(string serviceName, int userId);
     }
 }

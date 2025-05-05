@@ -17,6 +17,7 @@ class Program
             PhoneNumber = "123456789"
         };
 
+        // Autenticación básica
         Console.Write("Usuario: ");
         string inputUser = Console.ReadLine();
         Console.Write("Contraseña: ");
@@ -30,66 +31,11 @@ class Program
 
         Console.WriteLine("\n¡Bienvenido!");
 
-        // Inyectar dependencias manualmente
-        var passwordRepository = new PasswordRepository(); // Aquí puedes cambiar a una implementación real
-        var passwordService = new PasswordStorageService(passwordRepository);
+        // Inyección de dependencias
+        var passwordService = new PasswordStorageService(new PasswordRepository());
 
-        bool salir = false;
-        while (!salir)
-        {
-            ConsoleUI.MostrarMenuPrincipal();
-            string opcion = Console.ReadLine();
-
-            switch (opcion)
-            {
-                case "1":
-                    var lista = passwordService.ObtenerTodas(usuario.Id);
-                    ConsoleUI.MostrarContraseñas(lista);
-                    break;
-
-                case "2":
-                    var nueva = ConsoleUI.PedirNuevaPassword(usuario.Id);
-                    passwordService.Crear(nueva);
-                    ConsoleUI.MostrarMensaje("Contraseña agregada correctamente.");
-                    break;
-
-                case "3":
-                    int idEditar = ConsoleUI.PedirId();
-                    var existente = passwordService.ObtenerPorId(idEditar);
-                    if (existente == null)
-                    {
-                        ConsoleUI.MostrarMensaje("No se encontró la contraseña.");
-                        break;
-                    }
-
-                    var actualizado = ConsoleUI.PedirNuevaPassword(usuario.Id);
-                    actualizado.Id = idEditar;
-                    passwordService.Actualizar(actualizado);
-                    ConsoleUI.MostrarMensaje("Contraseña actualizada.");
-                    break;
-
-                case "4":
-                    int idEliminar = ConsoleUI.PedirId();
-                    var eliminar = passwordService.ObtenerPorId(idEliminar);
-                    if (eliminar == null)
-                    {
-                        ConsoleUI.MostrarMensaje("No se encontró la contraseña.");
-                        break;
-                    }
-
-                    passwordService.Eliminar(eliminar);
-                    ConsoleUI.MostrarMensaje("Contraseña eliminada.");
-                    break;
-
-                case "5":
-                    ConsoleUI.MostrarMensaje("Saliendo...");
-                    salir = true;
-                    break;
-
-                default:
-                    ConsoleUI.MostrarMensaje("Opción inválida.");
-                    break;
-            }
-        }
+        // Iniciar UI
+        var ui = new ConsoleUI(passwordService, usuario);
+        ui.Run();
     }
 }

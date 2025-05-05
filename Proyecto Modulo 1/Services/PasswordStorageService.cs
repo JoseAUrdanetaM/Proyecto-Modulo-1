@@ -48,5 +48,10 @@ namespace Proyecto_Modulo_1.Services
         {
             _passwordRepository.Delete(password);
         }
+
+        public List<PasswordStorage> BuscarPorServicio(string serviceName, int userId)
+        {
+            return _passwordRepository.BuscarPorServicio(serviceName, userId);
+        }
     }
 }
