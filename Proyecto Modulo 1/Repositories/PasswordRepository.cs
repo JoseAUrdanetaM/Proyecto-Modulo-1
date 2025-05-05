@@ -42,10 +42,5 @@ namespace Proyecto_Modulo_1.Repositories
         {
             return _passwords.Where(p => p.ServiceName.Contains(serviceName, StringComparison.OrdinalIgnoreCase)).ToList();
         }
-
-        public List<PasswordStorage> ObtenerPorUsuario(int userId)
-        {
-            return _passwords.Where(p => p.UserId == userId).ToList();
-        }
     }
 }
